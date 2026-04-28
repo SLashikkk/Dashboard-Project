@@ -1,18 +1,78 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
-    >
-    <link rel="icon" href="./assets/img/logo.png">
+    />
+    <link rel="icon" href="./assets/img/logo.png" />
   </head>
   <body>
-    
+    <button class="menu-toggle">=></button>
+
+    <div class="dashboard">
+      <aside class="dashboard__sidebar sidebar">
+        <button class="sidebar__header" aria-label="Toggle Menu">☰</button>
+
+        <div class="sidebar__section period-selector">
+          <h3 class="period-selector__title">Period</h3>
+          <select class="period-selector__select">
+            <option>April</option>
+          </select>
+          <select class="period-selector__select">
+            <option>2026</option>
+          </select>
+        </div>
+
+        <nav class="sidebar__nav menu">
+          <a href="#" class="menu__link menu__link--active">Projects</a>
+          <a href="#" class="menu__link">Employees</a>
+        </nav>
+      </aside>
+
+      <main class="dashboard__content content">
+        <header class="content__header">
+          <h1 class="content__title">Projects</h1>
+          <div class="content__actions">
+            <button class="btn btn--primary">+ Add Project</button>
+            <button class="btn btn--secondary">Seed Data</button>
+          </div>
+        </header>
+
+        <div class="content__table-wrapper">
+          <table class="table">
+            <thead class="table__head">
+              <tr class="table__row">
+                <th class="table__cell table__cell--header">Company Name</th>
+                <th class="table__cell table__cell--header">Project Name</th>
+                <th class="table__cell table__cell--header">Budget</th>
+                <th class="table__cell table__cell--header">
+                  Employee Capacity
+                </th>
+                <th class="table__cell table__cell--header">Employees</th>
+                <th class="table__cell table__cell--header">
+                  Estimated Income
+                </th>
+                <th class="table__cell table__cell--header">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="table__body"></tbody>
+          </table>
+        </div>
+
+        <div class="content__footer footer-info">
+          <p class="footer-info__text">
+            Total Estimated Income:
+            <span class="footer-info__price">$0.00</span>
+          </p>
+        </div>
+      </main>
+    </div>
+
     <script type="module" src="js/index.js"></script>
   </body>
 </html>
