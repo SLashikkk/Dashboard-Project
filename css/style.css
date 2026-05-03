@@ -91,96 +91,120 @@ ul {
   min-height: 100vh;
 }
 
-.sidebar {
-  width: 200px;
-  padding: 20px;
+.dashboard__sidebar {
+  width: 240px;
+  min-width: 240px;
   background-color: #2c3e50;
   color: white;
-  transition: transform 0.3s ease;
+  padding: 20px;
+  transition:
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    margin-left 0.4s ease;
 }
-.sidebar--hidden {
-  display: none;
+
+body.sidebar-is-hidden .dashboard__sidebar {
+  transform: translateX(-100%);
+  margin-left: -240px;
 }
 
 .sidebar__header {
   background: none;
   border: none;
-  color: inherit;
-  font-size: 25px;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: white;
+  font-size: 24px;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  margin-bottom: 30px;
+  width: 100%;
+  text-align: center;
+  transition: 0.3s ease;
 }
 
 .sidebar__header:hover {
-  opacity: 0.7;
-  background-color: #3d556d;
+  background-color: #455365;
+  border-radius: 10%;
 }
 
-.period-selector__title {
-  font-size: 14px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-.period-selector__select {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  background: #34495e;
+/* КНОПКА ОТКРЫТИЯ */
+.menu-toggle {
+  display: block;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  width: 45px;
+  height: 45px;
+  background-color: #3498db;
   color: white;
   border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.menu__link {
-  display: block;
-  color: #bdc3c7;
-  text-decoration: none;
-  padding: 12px 0;
-  border-bottom: 1px solid #34495e;
-}
-.menu__link--active {
-  color: white;
-  font-weight: bold;
+body.sidebar-is-hidden .menu-toggle {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
 }
 
+/* КОНТЕНТ */
 .content {
   flex: 1;
   padding: 40px;
+  transition: margin-left 0.4s ease;
 }
 
 .content__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  padding-bottom: 10px;
   border-bottom: 2px solid #bdc3c7;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-.content__title {
-  color: #2c3e50;
-  font-size: 28px;
-}
-
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  color: white;
+.period-selector__select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background-color: #3d556d;
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
   cursor: pointer;
-  margin-left: 10px;
-  transition: 0.2s;
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
 }
-.btn--primary {
-  background-color: #27ae60;
+
+.period-selector__select:hover {
+  background-color: #46607b;
 }
-.btn--secondary {
-  background-color: #2ecc71;
+
+.period-selector__select:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.menu__link {
+  display: block;
+  color: #bdc3c7;
+  padding: 12px 0;
+  border-bottom: 1px solid #34495e;
+}
+
+.menu__link--active {
+  color: white;
+  font-weight: bold;
 }
 
 .table {
@@ -189,44 +213,214 @@ ul {
   background: #34495e;
   color: white;
 }
+
 .table__cell {
   padding: 15px;
-  text-align: left;
-  font-size: 13px;
-  border-right: 1px solid #455a64;
-}
-.table__cell--header {
-  font-weight: bold;
-  text-transform: uppercase;
+  border: 1px solid #455a64;
 }
 
-.footer-info {
-  margin-top: 30px;
-  font-weight: bold;
-  color: #2c3e50;
-  font-size: 18px;
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
 }
+.btn--primary {
+  background-color: #27ae60;
+}
+.btn--secondary {
+  background-color: #2ecc71;
+}
+
+/* Панель */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  background: white;
+  z-index: 10001;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  transform: translateX(100%);
+  transition: transform 0.4s ease;
+}
+
+body.drawer-open .drawer {
+  transform: translateX(0);
+}
+
+/* Затемнение фона */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: none;
+}
+
+body.drawer-open .overlay {
+  display: block;
+}
+
+/* Стили формы внутри панели */
+.drawer__title {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+.drawer__divider {
+  margin-bottom: 20px;
+  border: 0.5px solid #eee;
+}
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+.error-message {
+  color: #ff4646;
+  font-size: 11px;
+  margin-top: 4px;
+  display: block;
+  min-height: 14px;
+}
+
+input.invalid,
+select.invalid {
+  border-color: #ff4646;
+  background-color: #fff8f8;
+}
+input.valid,
+select.valid {
+  border-color: #27ae60;
+}
+
+.btn--add:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn--add {
+  background-color: #bdc3c7;
+  color: #7f8c8d;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+/* Активное состояние (когда все поля валидны) */
+.btn--add:not(:disabled) {
+  background-color: #27ae60;
+  color: white;
+  cursor: pointer;
+  opacity: 1;
+  box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+}
+
+.btn--add:not(:disabled):hover {
+  background-color: #219150;
+  transition: 0.3s ease;
+}
+
+.btn--cancel {
+  background-color: #f8f9fa;
+  color: #4a5568;
+  border: 1px solid #cbd5e0;
+  transition: all 0.2s ease;
+}
+
+.btn--cancel:hover {
+  background-color: #edf2f7;
+  border-color: #a0aec0;
+  color: #2d3748;
+}
+
+/* Стили для мгновенного сброса классов валидации */
+.valid,
+.invalid {
+  transition: border-color 0.2s ease;
+}
+
+.filters {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.filters__search {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+/* Иконки сортировки в шапке */
+.table__cell--header {
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.table__cell--header::after {
+  content: "↕";
+  font-size: 10px;
+  margin-left: 8px;
+  opacity: 0.4;
+}
+
+.table__cell--header:hover {
+  background-color: #455a64;
+}
+
+.footer-info__text {
+  margin-top: 20px;
+  padding: 15px 20px;
+  background-color: #ecf0f1;
+  border-radius: 6px;
+  font-size: 1.1em;
+}
+
 .footer-info__price {
+  font-weight: 700;
+  font-size: 1.2em;
   color: #27ae60;
 }
 
-.menu-toggle {
-  position: fixed;
-  left: 20px;
-  top: 20px;
-  width: 40px;
-  height: 40px;
-  background-color: #2ecc71;
-  border: none;
-  cursor: pointer;
-  z-index: 1000;
-
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s;
+.table__cell--header:active {
+  color: #27ae60;
 }
 
-.menu-toggle--visible {
-  opacity: 1;
-  visibility: visible;
+.dob-select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  font-size: 14px;
+}
+.dob-select:focus {
+  border-color: #27ae60;
+  outline: none;
+}
+
+.page {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
