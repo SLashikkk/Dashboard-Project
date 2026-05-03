@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./assets/img/logo.png" />
+  </head>
+  <body>
+    <div class="overlay"></div>
+
+    <div class="drawer">
+      <div class="drawer__content">
+        <h2 class="drawer__title">Add New Project</h2>
+        <hr class="drawer__divider" />
+        <form class="drawer__form" novalidate>
+          <div class="form-group">
+            <label>First Name: *</label>
+            <input
+              type="text"
+              name="firstName"
+              data-rules="required|min3|letters"
+              placeholder="John"
+            />
+            <span class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Last Name: *</label>
+            <input
+              type="text"
+              name="lastName"
+              data-rules="required|min3|letters"
+              placeholder="Doe"
+            />
+            <span class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth: *</label>
+            <div class="dob-group" style="display: flex; gap: 8px">
+              <select
+                name="dob-day"
+                id="dob-day"
+                data-rules="required"
+                style="flex: 1"
+              ></select>
+              <select
+                name="dob-month"
+                id="dob-month"
+                data-rules="required"
+                style="flex: 2"
+              >
+                <option value="">Month</option>
+                <option value="0">January</option>
+                <option value="1">February</option>
+                <option value="2">March</option>
+                <option value="3">April</option>
+                <option value="4">May</option>
+                <option value="5">June</option>
+                <option value="6">July</option>
+                <option value="7">August</option>
+                <option value="8">September</option>
+                <option value="9">October</option>
+                <option value="10">November</option>
+                <option value="11">December</option>
+              </select>
+              <select
+                name="dob-year"
+                id="dob-year"
+                data-rules="required"
+                style="flex: 1.5"
+              ></select>
+            </div>
+            <span class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Position: *</label>
+            <select name="position" data-rules="required">
+              <option value="">Select position...</option>
+              <option value="developer">Developer</option>
+              <option value="manager">Manager</option>
+              <option value="designer">Designer</option>
+            </select>
+            <span class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Salary ($): *</label>
+            <input
+              type="number"
+              name="salary"
+              step="0.01"
+              data-rules="required|positive"
+              placeholder="0.00"
+            />
+            <span class="error-message"></span>
+          </div>
+
+          <div class="drawer__actions">
+            <button type="submit" class="btn btn--add" disabled>Submit</button>
+            <button type="button" class="btn btn--cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <button class="menu-toggle">=></button>
+
+    <div class="dashboard">
+      <aside class="dashboard__sidebar sidebar">
+        <button class="sidebar__header" aria-label="Toggle Menu">☰</button>
+        <div class="sidebar__section period-selector">
+          <h3 class="period-selector__title">Period</h3>
+          <select class="period-selector__select" id="month-select">
+            <option value="0">January</option>
+            <option value="1">February</option>
+            <option value="2">March</option>
+            <option value="3">April</option>
+            <option value="4" selected>May</option>
+            <option value="5">June</option>
+            <option value="6">July</option>
+            <option value="7">August</option>
+            <option value="8">September</option>
+            <option value="9">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>
+          </select>
+          <select class="period-selector__select" id="year-select">
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026" selected>2026</option>
+            <option value="2027">2027</option>
+          </select>
+        </div>
+        <nav class="sidebar__nav menu">
+          <a href="#" class="menu__link menu__link--active">Projects</a>
+          <a href="#" class="menu__link">Employees</a>
+        </nav>
+      </aside>
+
+      <main class="dashboard__content content">
+        <header class="content__header">
+          <h1 class="content__title" id="page-title">Projects</h1>
+          <div class="content__actions">
+            <button class="btn btn--primary" id="main-action-btn">
+              + Add Project
+            </button>
+            <button class="btn btn--secondary">Seed Data</button>
+          </div>
+        </header>
+
+        <div class="filters">
+          <input type="text" class="filters__search" placeholder="Search..." />
+        </div>
+
+        <!-- БЛОК ПРОЕКТОВ -->
+        <div id="projects-page" class="page">
+          <div class="content__table-wrapper">
+            <table class="table">
+              <thead class="table__head">
+                <tr>
+                  <th class="table__cell table__cell--header">Company</th>
+                  <th class="table__cell table__cell--header">Project</th>
+                  <th class="table__cell table__cell--header">Budget</th>
+                  <th class="table__cell table__cell--header">Capacity</th>
+                  <th class="table__cell table__cell--header">Employees</th>
+                  <th class="table__cell table__cell--header">Income</th>
+                  <th class="table__cell">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="table__body" id="projects-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- БЛОК СОТРУДНИКОВ (скрыт по умолчанию) -->
+        <div id="employees-page" class="page" style="display: none">
+          <div class="content__table-wrapper">
+            <table class="table">
+              <thead class="table__head">
+                <tr>
+                  <th class="table__cell table__cell--header">Name</th>
+                  <th class="table__cell table__cell--header">Surname</th>
+                  <th class="table__cell table__cell--header">Age</th>
+                  <th class="table__cell table__cell--header">Position</th>
+                  <th class="table__cell table__cell--header">Salary</th>
+                  <th class="table__cell table__cell--header">Payment</th>
+                  <th class="table__cell table__cell--header">Project</th>
+                  <th class="table__cell table__cell--header">Income</th>
+                  <th class="table__cell">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="table__body" id="employees-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="content__footer footer-info">
+          <p class="footer-info__text">
+            Total: <span class="footer-info__price">$0.00</span>
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="js/index.js"></script>
+  </body>
+</html>
